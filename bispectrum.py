@@ -176,7 +176,7 @@ def bispectrum(y,nfft=None,wind=None,nsamp=None,overlap=None):
   locseg = np.arange(nsamp,dtype='int').transpose()
   y = y.ravel(order='F')
 
-  for krec in xrange(int(nrecs)):
+  for krec in range(int(nrecs)):
     xseg = y[locseg].reshape(1,-1)
     Xf = np.fft.fft(xseg - np.mean(xseg), nfft) / nsamp
     CXf = np.conjugate(Xf).ravel(order='F')
