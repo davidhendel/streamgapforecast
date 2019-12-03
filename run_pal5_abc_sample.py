@@ -1,4 +1,5 @@
 # run_pal5_abc.py: simple ABC method for constraining Nsubhalo from Pal 5 data
+from __future__ import print_function
 import os, os.path
 import glob
 import csv
@@ -12,7 +13,6 @@ from galpy.util import save_pickles, bovy_conversion, bovy_coords
 import simulate_streampepper
 import bispectrum
 import pal5_util
-from __future__ import print_function
 from gd1_util import R0,V0
 if os.uname()[1] == 'hendel':
     _DATADIR = '/Users/hendel/projects/streamgaps/streampepper/data/'
