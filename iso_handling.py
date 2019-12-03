@@ -1,5 +1,5 @@
 from scipy.interpolate import interp1d
-import ebf=
+import ebf
 import numpy as np
 import string
 import pickle
