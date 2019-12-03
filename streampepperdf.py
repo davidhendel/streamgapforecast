@@ -1,4 +1,5 @@
 # The DF of a tidal stream peppered with impacts
+from __future__ import print_function
 import copy
 import hashlib
 import numpy
@@ -299,7 +300,7 @@ class streampepperdf(streamdf):
         # Setup
 
         if verbose:
-            print impact_angles, impactbs, subhalovels, timpacts, GMs, rss
+            print(impact_angles, impactbs, subhalovels, timpacts, GMs, rss)
 
         self.set_impacts(impact_angle=impact_angles,
                          impactb=impactbs,
