@@ -12,11 +12,16 @@ from galpy.util import save_pickles, bovy_conversion, bovy_coords
 import simulate_streampepper
 import bispectrum
 import pal5_util
+from __future__ import print_function
 from gd1_util import R0,V0
-_DATADIR= os.getenv('DATADIR')
+if os.uname()[1] == 'hendel':
+    _DATADIR = '/Users/hendel/projects/streamgaps/streampepper/data/'
+elif os.uname()[1] == 'yngve':
+    _DATADIR = '/home/hendel/projects/streamgapforecast/data/'
+#_DATADIR= os.getenv('DATADIR')
 _BISPECIND= 2
 
-# python run_pal5_abc_sample.py -s /Users/hendel/projects/streamgaps/streampepper/data/pal5_64sampling.pkl --outsamp /Users/hendel/projects/streamgaps/streampepper/data/abcsamples/outsamptest.dat --abcfile /Users/hendel/projects/streamgaps/streampepper/data/abcsamples/abctest.dat -M 6,9 -m dens_30000 --nsamples=30000 --nbg 300
+# python run_pal5_abc_sample.py -s pal5_64sampling.pkl --outsamp abcsamples/outsamp.dat --abcfile abcsamples/abcsamp.dat -M 6,9 -m dens_30000 --nsamples=30000 --nbg 300
 
 def get_options():
     usage = "usage: %prog [options]"
@@ -26,7 +31,7 @@ def get_options():
                       default=None,
                       help="Filename to save the streampepperdf object in")
     # savefilenames
-    parser.add_option("--datadir",dest='datadir',default=None,
+    parser.add_option("--datadir",dest='datadir',default=_DATADIR,
                       help="Name of the data directory, prefixed to outsamp and abcfile")
     parser.add_option("--outsamp",dest='outsamp',default=None,
                       help="Name of the output file for the sampled density")
@@ -226,7 +231,7 @@ def process_mock_densdata(options):
     dat = np.loadtxt('/Users/hendel/projects/streamgaps/streampepper/data/fakeobs/' + options.mockfilename, delimiter=',')
     #fix seed for testing
     if 0:
-      print 'warning: Poisson seed fixed'
+      print('warning: Poisson seed fixed')
       np.random.seed(42)
     h = dat[simn] + np.random.poisson(options.nbg, size=len(dat[simn]))
     h = np.maximum(h - options.nbg, np.zeros_like(h))
@@ -309,9 +314,9 @@ def pal5_abc(sdf_pepper,options):
         # Setup saving 
         if os.path.exists(options.outsamp):
             # First read the file to check apar
-            print 'does ' + options.outsamp + ' exist?', os.path.exists(options.outsamp)
+            print('does ' + options.outsamp + ' exist?', os.path.exists(options.outsamp))
             bins_file= np.genfromtxt(options.outsamp,delimiter=',',max_rows=1)
-            print np.amax(np.fabs(bins_file-bins))
+            print(np.amax(np.fabs(bins_file-bins)))
             assert np.amax(np.fabs(bins_file-bins)) < 10.**-5., 'bins according to options does not correspond to bins already in outsamp'
             csvsamp= open(options.outsamp,'a')          
             sampwriter= csv.writer(csvsamp,delimiter=',')
@@ -337,7 +342,7 @@ def pal5_abc(sdf_pepper,options):
                                     plummer=options.plummer,
                                     rsfac=options.rsfac)
                             for r in rate_range])
-        print "Using an overall CDM rate of %f" % cdmrate
+        print("Using an overall CDM rate of %f" % cdmrate)
     # Load Pal 5 data to compare to
     if options.mockfilename is None:
         power_data, data_err, data_ppyr, data_ppyi=\
@@ -353,10 +358,10 @@ def pal5_abc(sdf_pepper,options):
                       +options.ratemin)
             #### fix to CDM for testing
             if options.fixcdmrate:
-              print 'warning: using only CDM rate'
+              print('warning: using only CDM rate')
               l10rate=0.
             rate= 10.**l10rate*cdmrate
-            print l10rate, rate
+            print(l10rate, rate)
             # Simulate
             sdf_pepper.simulate(rate=rate,sample_GM=sample_GM,sample_rs=sample_rs,
                                 Xrs=options.Xrs)
@@ -439,7 +444,7 @@ def abcsims(sdf_pepper,options):
         csvabc.flush()
         abcwriter.writerow(list([sim[0]]+[p for p in list(sim)[3]]))
         csvabc.flush()
-        print nit
+        print(nit)
         nit+= 1
         if nit >= options.nerrsim*options.nsims: break
     return None
@@ -479,9 +484,9 @@ if __name__ == '__main__':
     options.outsamp = options.datadir+options.outsamp
     options.abcfile = options.datadir+options.abcfile
     # Setup the streampepperdf object
-    print options.streamsavefilename, os.path.exists(options.streamsavefilename)
+    print(options.streamsavefilename, os.path.exists(options.streamsavefilename))
     if not os.path.exists(options.streamsavefilename):
-        print 'rebuilding pepper sampling'
+        print('rebuilding pepper sampling')
         timpacts= simulate_streampepper.parse_times(\
             options.timpacts,options.age)
         sdf_smooth= pal5_util.setup_pal5model(age=options.age)
@@ -489,10 +494,10 @@ if __name__ == '__main__':
                                               hernquist=not options.plummer,
                                               age=options.age,
                                               length_factor=options.length_factor)
-        save_pickles(options.streamsavefilename,sdf_smooth,sdf_pepper)
+        save_pickles(_DATADIR+options.streamsavefilename,sdf_smooth,sdf_pepper)
     else:
-        with open(options.streamsavefilename,'rb') as savefile:
-            print 'loading streampepper pickle'
+        with open(_DATADIR+options.streamsavefilename,'rb') as savefile:
+            print('loading streampepper pickle')
             #print options.streamsavefilename
             #sdf_smooth= pickle.load(savefile)
             sdf_pepper= pickle.load(savefile)
