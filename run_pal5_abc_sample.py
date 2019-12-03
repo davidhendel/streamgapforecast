@@ -21,6 +21,10 @@ elif os.uname()[1] == 'yngve':
 #_DATADIR= os.getenv('DATADIR')
 _BISPECIND= 2
 
+
+#new
+#python3 run_pal5_abc_sample.py -s pal5_64sampling_trailing.pkl --outsamp abcsamples/samp_test.dat  --abcfile abcsamples/abc_test.dat  -M 7,9 --nsamples=3200  --nbg 13 --nsims=1000 --nerrsim 100
+
 # python run_pal5_abc_sample.py -s pal5_64sampling.pkl --outsamp abcsamples/outsamp.dat --abcfile abcsamples/abcsamp.dat -M 6,9 -m dens_30000 --nsamples=30000 --nbg 300
 
 def get_options():
@@ -485,7 +489,7 @@ if __name__ == '__main__':
     options.abcfile = options.datadir+options.abcfile
     print(options.abcfile,options.outsamp)
     # Setup the streampepperdf object
-    print(options.streamsavefilename, os.path.exists(options.streamsavefilename))
+    print(_DATADIR+options.streamsavefilename, os.path.exists(_DATADIR+options.streamsavefilename))
     if not os.path.exists(options.streamsavefilename):
         print('rebuilding pepper sampling')
         timpacts= simulate_streampepper.parse_times(\
