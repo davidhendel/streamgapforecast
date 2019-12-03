@@ -483,6 +483,7 @@ if __name__ == '__main__':
     options,args= parser.parse_args()
     options.outsamp = options.datadir+options.outsamp
     options.abcfile = options.datadir+options.abcfile
+    print(options.abcfile,options.outsamp)
     # Setup the streampepperdf object
     print(options.streamsavefilename, os.path.exists(options.streamsavefilename))
     if not os.path.exists(options.streamsavefilename):
