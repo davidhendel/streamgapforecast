@@ -490,7 +490,7 @@ if __name__ == '__main__':
     print(options.abcfile,options.outsamp)
     # Setup the streampepperdf object
     print(_DATADIR+options.streamsavefilename, os.path.exists(_DATADIR+options.streamsavefilename))
-    if not os.path.exists(options.streamsavefilename):
+    if not os.path.exists(_DATADIR+options.streamsavefilename):
         print('rebuilding pepper sampling')
         timpacts= simulate_streampepper.parse_times(\
             options.timpacts,options.age)
