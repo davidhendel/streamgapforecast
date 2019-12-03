@@ -499,13 +499,16 @@ if __name__ == '__main__':
                                               hernquist=not options.plummer,
                                               age=options.age,
                                               length_factor=options.length_factor)
-        save_pickles(_DATADIR+options.streamsavefilename,sdf_smooth,sdf_pepper)
+        save_pickles(_DATADIR+options.streamsavefilename,sdf_pepper) #, sdf_smooth)
     else:
         with open(_DATADIR+options.streamsavefilename,'rb') as savefile:
             print('loading streampepper pickle')
             #print options.streamsavefilename
             #sdf_smooth= pickle.load(savefile)
-            sdf_pepper= pickle.load(savefile)
+            if os.uname()[1] == 'yngve':
+                sdf_pepper = pickle.load(savefile, encoding='latin1')
+            if os.uname()[1] == 'hendel':
+                sdf_pepper = pickle.load(savefile)
     if options.recomputeall:
         options.recompute= True
         # recompute basic
