@@ -17,7 +17,7 @@ from gd1_util import R0,V0
 if os.uname()[1] == 'hendel':
     _DATADIR = '/Users/hendel/projects/streamgaps/streampepper/data/'
 elif os.uname()[1] == 'yngve':
-    _DATADIR = '/home/hendel/projects/streamgapforecast/data/'
+    _DATADIR = '/epsen_data/scr/hendel/streamgapforecast/'
 #_DATADIR= os.getenv('DATADIR')
 _BISPECIND= 2
 
@@ -82,7 +82,7 @@ def get_options():
     parser.add_option("--maxxi",dest='maxxi',default=15.,
                       type='float',
                       help="Maximum xi to consider")   
-    parser.add_option("--nerrsim",dest='nerrsim',default=1,
+    parser.add_option("--nerrsim",dest='nerrsim',default=10,
                       type='int',
                       help="Simulate this many realizations of the errors per rate simulation")   
     parser.add_option("-m",dest='mockfilename',
@@ -107,7 +107,7 @@ def get_options():
     parser.add_option("--nsamples",dest='nsamples',default=1000,
                       type='int',
                       help="Number of sample stars to draw")
-    parser.add_option("--nbg",dest='nbg',default=100,
+    parser.add_option("--nbg",dest='nbg',default=10,
                       type='int',
                       help="Number of background stars per bin")
     parser.add_option("--summarize",dest='summarize',default=None,
