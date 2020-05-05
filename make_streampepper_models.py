@@ -2,7 +2,6 @@ import pal5_util
 import gd1_util
 import phx_util
 from galpy.util import save_pickles
-from streampepper_utils import parse_times
 from multiprocessing import Pool
 
 '''
@@ -35,6 +34,14 @@ args = [
 ('phx_leading_2sampling.pkl'  ,phx_util.setup_phxmodel  , parse_times('2sampling',1.5), True ),
 ('phx_trailing_2sampling.pkl' ,phx_util.setup_phxmodel  , parse_times('2sampling',1.5), False),
 ]
+
+def parse_times(times,age):
+    if 'sampling' in times:
+        nsam= int(times.split('sampling')[0])
+        return [float(ti)/bovy_conversion.time_in_Gyr(V0,R0)
+                for ti in numpy.arange(1,nsam+1)/(nsam+1.)*age]
+    return [float(ti)/bovy_conversion.time_in_Gyr(V0,R0)
+            for ti in times.split(',')]
 
 def save_stream_model_pickles(fname, setupfunc, timpact, leading):
 	model = setupfunc(timpact=timpact, leading=leading)
