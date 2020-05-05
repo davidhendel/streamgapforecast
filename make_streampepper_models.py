@@ -47,7 +47,7 @@ def save_stream_model_pickles(fname, setupfunc, timpact, leading):
 
 if __name__ == '__main__':
     p = Pool(6)
-    print(p.map(save_stream_model_pickles, args))
+    print(p.starmap(save_stream_model_pickles, args))
 
 
 
