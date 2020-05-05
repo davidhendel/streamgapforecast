@@ -5,6 +5,7 @@ import gd1_util
 import phx_util
 from galpy.util import save_pickles
 from galpy.util import bovy_conversion, bovy_coords
+R0, V0= 8., 220.
 
 '''
 Setup the models used to calculate mock streams.
