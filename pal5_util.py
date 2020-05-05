@@ -49,7 +49,7 @@ def setup_pal5model(leading=False,
     obs= Orbit([229.018,-0.124,23.2,-2.296,-2.257,-58.7],
                radec=True,ro=R0,vo=V0,
                solarmotion=[-11.1,24.,7.25])
-    aAI= actionAngleIsochroneApprox(pot=MWPotential2014,b=0.8)
+    aAI= actionAngleIsochroneApprox(pot=MWPotential2014,b=0.81)
     sigv= 0.5*(5./age) #km/s, adjust for diff. age
     if timpact is None:
         sdf= streamdf(sigv/V0,progenitor=obs,
