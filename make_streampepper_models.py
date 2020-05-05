@@ -31,12 +31,12 @@ def parse_times(times,age):
             for ti in times.split(',')]
 
 args = [
-('pal5_leading_2sampling.pkl' ,pal5_util.setup_pal5model, parse_times('2sampling',5.0), True ),
-('pal5_trailing_2sampling.pkl',pal5_util.setup_pal5model, parse_times('2sampling',5.0), False),
-('gd1_leading_2sampling.pkl'  ,gd1_util.setup_gd1model  , parse_times('2sampling',9.0), True ),
-('gd1_trailing_2sampling.pkl' ,gd1_util.setup_gd1model  , parse_times('2sampling',9.0), False),
-('phx_leading_2sampling.pkl'  ,phx_util.setup_phxmodel  , parse_times('2sampling',1.5), True ),
-('phx_trailing_2sampling.pkl' ,phx_util.setup_phxmodel  , parse_times('2sampling',1.5), False),
+('pal5_leading_64sampling.pkl' ,pal5_util.setup_pal5model, parse_times('64sampling',5.0), True ),
+('pal5_trailing_64sampling.pkl',pal5_util.setup_pal5model, parse_times('64sampling',5.0), False),
+('gd1_leading_64sampling.pkl'  ,gd1_util.setup_gd1model  , parse_times('64sampling',9.0), True ),
+('gd1_trailing_64sampling.pkl' ,gd1_util.setup_gd1model  , parse_times('64sampling',9.0), False),
+('phx_leading_64sampling.pkl'  ,phx_util.setup_phxmodel  , parse_times('64sampling',1.5), True ),
+('phx_trailing_64sampling.pkl' ,phx_util.setup_phxmodel  , parse_times('64sampling',1.5), False),
 ]
 
 
