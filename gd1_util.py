@@ -40,7 +40,7 @@ def setup_gd1model(leading=True,
                          spline_order=3,
                          hernquist=hernquist,**kwargs)
     else:
-        sdf= streampepperdf(sigv/V0.,progenitor=obs,
+        sdf= streampepperdf(sigv/V0,progenitor=obs,
                             pot=MWPotential2014,
                             aA=aAI,
                             leading=leading,
