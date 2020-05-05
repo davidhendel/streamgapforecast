@@ -19,12 +19,13 @@ To sample the stream density you will need
 
 '''
 
-#pal5_leading_model  = pal5_util.setup_pal5model(timpact=parse_times('1sampling',5.0),leading=True)
-#pal5_trailing_model = pal5_util.setup_pal5model(timpact=parse_times('1sampling',5.0),leading=False)
-#gd1_leading_model   = gd1_util.setup_gd1model(  timpact=parse_times('1sampling',9.0),leading=True)
-#gd1_trailing_model  = gd1_util.setup_gd1model(  timpact=parse_times('1sampling',9.0),leading=False)
-#phx_leading_model   = phx_util.setup_phxmodel(  timpact=parse_times('1sampling',1.5),leading=True)
-#phx_trailing_model  = phx_util.setup_phxmodel(  timpact=parse_times('1sampling',1.5),leading=False)
+def parse_times(times,age):
+    if 'sampling' in times:
+        nsam= int(times.split('sampling')[0])
+        return [float(ti)/bovy_conversion.time_in_Gyr(V0,R0)
+                for ti in numpy.arange(1,nsam+1)/(nsam+1.)*age]
+    return [float(ti)/bovy_conversion.time_in_Gyr(V0,R0)
+            for ti in times.split(',')]
 
 args = [
 ('pal5_leading_2sampling.pkl' ,pal5_util.setup_pal5model, parse_times('2sampling',5.0), True ),
@@ -35,13 +36,6 @@ args = [
 ('phx_trailing_2sampling.pkl' ,phx_util.setup_phxmodel  , parse_times('2sampling',1.5), False),
 ]
 
-def parse_times(times,age):
-    if 'sampling' in times:
-        nsam= int(times.split('sampling')[0])
-        return [float(ti)/bovy_conversion.time_in_Gyr(V0,R0)
-                for ti in numpy.arange(1,nsam+1)/(nsam+1.)*age]
-    return [float(ti)/bovy_conversion.time_in_Gyr(V0,R0)
-            for ti in times.split(',')]
 
 def save_stream_model_pickles(fname, setupfunc, timpact, leading):
 	model = setupfunc(timpact=timpact, leading=leading)
