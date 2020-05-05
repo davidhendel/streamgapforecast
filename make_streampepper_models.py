@@ -3,6 +3,7 @@ import gd1_util
 import phx_util
 from galpy.util import save_pickles
 from multiprocessing import Pool
+import numpy
 
 '''
 Setup the models used to calculate mock streams.
