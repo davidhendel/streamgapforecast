@@ -1,9 +1,10 @@
+#if sys.version_info[0] < 3:
+from __future__ import print_function
 from astropy import table
 from scipy.interpolate import interp1d
 import numpy as np
 import sys 
-if sys.version_info[0] < 3:
-    from __future__ import print_function
+
 
 def build_isos_and_errors():
     castorfile = '/Users/hendel/projects/castor/iso_castor_0.00010_1e10.dat'
