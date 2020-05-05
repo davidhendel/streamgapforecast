@@ -10,8 +10,6 @@ from astropy.coordinates import frame_transform_graph
 from astropy.coordinates.matrix_utilities import rotation_matrix, matrix_product, matrix_transpose
 import astropy.coordinates as coord
 from astropy.coordinates import SkyCoord
-
-
 R0,V0= 8., 220.
 # Coordinate transformation routines
 #_RAPHX= dasdf/180.*np.pi
