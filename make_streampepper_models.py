@@ -1,9 +1,10 @@
+import numpy
+from multiprocessing import Pool
 import pal5_util
 import gd1_util
 import phx_util
 from galpy.util import save_pickles
-from multiprocessing import Pool
-import numpy
+from galpy.util import bovy_conversion, bovy_coords
 
 '''
 Setup the models used to calculate mock streams.
