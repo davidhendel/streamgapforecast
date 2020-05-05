@@ -1,6 +1,9 @@
 from astropy import table
 from scipy.interpolate import interp1d
 import numpy as np
+import sys 
+if sys.version_info[0] < 3:
+    from __future__ import print_function
 
 def build_isos_and_errors():
     castorfile = '/Users/hendel/projects/castor/iso_castor_0.00010_1e10.dat'
@@ -100,7 +103,7 @@ def bg_counts_fits(dm, magerror_mod=1., filter='g', survey='LSST10', iso=None, e
         iso = isoinstance()
 
     if errormodel==None:
-        print "warning: not using pre-calculated error model"
+        print("warning: not using pre-calculated error model")
         magerror_interp = interp1d(np.linspace(14,28,100),
             getMagErrVec(np.linspace(14,28,100), filter, survey=survey), bounds_error=False, fill_value=Inf)
     else: magerror_interp=errormodel
@@ -110,7 +113,7 @@ def bg_counts_fits(dm, magerror_mod=1., filter='g', survey='LSST10', iso=None, e
     #per sq degree
     realmaglim = getMagLimit(filter, survey=survey)
     if maglim > realmaglim:
-        print 'warning: maglim fainter than survey depth'
+        print('warning: maglim fainter than survey depth')
     return np.sum(bg_sel)/area
 
 
@@ -214,7 +217,7 @@ def dist_and_power(data, data_rs, err=None, bkg=0., degree=3, nbins=50, xirange=
     terr = dist_errs/pp(centroids)
 
     t1 = time.time()
-    if verbose==True: print "time for tdata and terr:", t1-t0
+    if verbose==True: print("time for tdata and terr:", t1-t0)
 
     t0 = time.time()
     from scipy import signal
@@ -226,7 +229,7 @@ def dist_and_power(data, data_rs, err=None, bkg=0., degree=3, nbins=50, xirange=
     py= numpy.sqrt(py*(centroids[-1]-centroids[0]))
 
     t1 = time.time()
-    if verbose==True: print "time for power spectrum:", t1-t0
+    if verbose==True: print("time for power spectrum:", t1-t0)
 
     # Perform simulations of the noise to determine the power in the noise
     t0 = time.time()
@@ -241,7 +244,7 @@ def dist_and_power(data, data_rs, err=None, bkg=0., degree=3, nbins=50, xirange=
     py_err= numpy.sqrt(numpy.median(ppy_err,axis=0)*(centroids[-1]-centroids[0]))
     pcut= 0.0 # Only trust points above this, then remove noise - Jo has 0.4
     t1 = time.time()
-    if verbose==True: print "time for error analysis", t1-t0
+    if verbose==True: print("time for error analysis", t1-t0)
 
     if plot==True:
         plt.subplot(111)
@@ -290,7 +293,7 @@ def pos_and_power(data, data_rs, err=None, bkg=0., degree=3, nbins=50, xirange=[
     terr = pos_errs/pp(centroids)
 
     t1 = time.time()
-    if verbose==True: print "time for tdata and terr:", t1-t0
+    if verbose==True: print("time for tdata and terr:", t1-t0)
 
     t0 = time.time()
     from scipy import signal
@@ -302,7 +305,7 @@ def pos_and_power(data, data_rs, err=None, bkg=0., degree=3, nbins=50, xirange=[
     py= numpy.sqrt(py*(centroids[-1]-centroids[0]))
 
     t1 = time.time()
-    if verbose==True: print "time for power spectrum:", t1-t0
+    if verbose==True: print("time for power spectrum:", t1-t0)
 
     # Perform simulations of the noise to determine the power in the noise
     t0 = time.time()
@@ -317,7 +320,7 @@ def pos_and_power(data, data_rs, err=None, bkg=0., degree=3, nbins=50, xirange=[
     py_err= numpy.sqrt(numpy.median(ppy_err,axis=0)*(centroids[-1]-centroids[0]))
     pcut= 0.0 # Only trust points above this, then remove noise - Jo has 0.4
     t1 = time.time()
-    if verbose==True: print "time for error analysis", t1-t0
+    if verbose==True: print("time for error analysis", t1-t0)
 
     if plot==True:
         plt.subplot(111)
@@ -353,7 +356,7 @@ def dens_and_power(data, err=None, bkg=0., degree=3, nbins=50, xirange=[-20,0], 
     terr = err/pp(centroids)
 
     t1 = time.time()
-    if verbose==True: print "time for tdata and terr:", t1-t0
+    if verbose==True: print("time for tdata and terr:", t1-t0)
 
     t0 = time.time()
     from scipy import signal
@@ -365,7 +368,7 @@ def dens_and_power(data, err=None, bkg=0., degree=3, nbins=50, xirange=[-20,0], 
     py= numpy.sqrt(py*(centroids[-1]-centroids[0]))
 
     t1 = time.time()
-    if verbose==True: print "time for power spectrum:", t1-t0
+    if verbose==True: print("time for power spectrum:", t1-t0)
 
     # Perform simulations of the noise to determine the power in the noise
     t0 = time.time()
@@ -380,7 +383,7 @@ def dens_and_power(data, err=None, bkg=0., degree=3, nbins=50, xirange=[-20,0], 
     py_err= numpy.sqrt(numpy.median(ppy_err,axis=0)*(centroids[-1]-centroids[0]))
     pcut= 0.0 # Only trust points above this, then remove noise - Jo has 0.4
     t1 = time.time()
-    if verbose==True: print "time for error analysis", t1-t0
+    if verbose==True: print("time for error analysis", t1-t0)
 
     if plot==True:
     	plt.subplot(111)
@@ -530,7 +533,7 @@ def getMagErr(mag, filt, survey='LSST', calibration_err=0.01):
             magerr = np.interp(mag, r, r_err)
         return np.sqrt(magerr**2 + calibration_err**2)
     else:
-        print "No error model for this survey"
+        print("No error model for this survey")
 
 
 def getMagErrVec(mag, filt, survey='LSST'):
